@@ -1,0 +1,45 @@
+name: 다운로드 수 일일 기록
+
+on:
+  schedule:
+    - cron: '5 0 * * *'      # 매일 00:05 UTC (한국 09:05)
+  workflow_dispatch: {}       # 수동 실행 버튼도 제공
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 다운로드 수 스냅샷 기록
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p stats
+          DATE=$(date -u +%Y-%m-%d)
+          # 전체 릴리스 자산의 누적 다운로드 합계
+          TOTAL=$(gh api "repos/${{ github.repository }}/releases" \
+            --jq '[.[].assets[]?.download_count // 0] | add // 0')
+          # 최신 릴리스 태그와 그 자산 다운로드 수
+          LATEST=$(gh api "repos/${{ github.repository }}/releases/latest" --jq '.tag_name' 2>/dev/null || echo "-")
+          LATEST_DL=$(gh api "repos/${{ github.repository }}/releases/latest" \
+            --jq '[.assets[]?.download_count // 0] | add // 0' 2>/dev/null || echo 0)
+
+          FILE=stats/downloads.csv
+          [ -f "$FILE" ] || echo "date,total_downloads,latest_tag,latest_downloads" > "$FILE"
+          # 같은 날짜 줄이 이미 있으면 갱신, 없으면 추가
+          grep -v "^${DATE}," "$FILE" > "$FILE.tmp" && mv "$FILE.tmp" "$FILE"
+          echo "${DATE},${TOTAL},${LATEST},${LATEST_DL}" >> "$FILE"
+
+          echo "기록: ${DATE} 누적 ${TOTAL}회 (최신 ${LATEST}: ${LATEST_DL}회)"
+
+      - name: 변경 커밋
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add stats/downloads.csv
+          git commit -m "chore: 다운로드 수 일일 스냅샷 ($(date -u +%Y-%m-%d))" || echo "변경 없음"
+          git push || echo "push 생략"
