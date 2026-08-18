@@ -12,10 +12,10 @@
 - 요구 사항: **macOS 14 (Sonoma) 이상** · Apple Silicon / Intel 모두 지원
 - Apple 공증(Notarized)이 완료된 앱이라 Gatekeeper 경고 없이 실행됩니다
 
-## 무료 범위와 AI
+## 기능 범위와 AI
 
-- **사진 분석·글감 발굴은 완전 무료**이며 전부 이 Mac 안에서 실행됩니다 (사진은 어디에도 업로드되지 않습니다)
-- **AI 초안 생성만** 본인의 Claude 구독(Claude Code) 또는 Claude·GPT·Gemini API 키가 필요합니다
+- **사진 분석·글감 발굴은 계정 없이** 전부 이 Mac 안에서 실행됩니다 (사진은 어디에도 업로드되지 않습니다)
+- **AI 초안 생성만** 본인의 Claude Code(구독 한도 적용, 사용 크레딧 활성화 시 추가 요금 발생 가능) 또는 Claude·GPT·Gemini API 키가 필요합니다
 
 ## 개인정보
 
@@ -27,7 +27,7 @@
 다운로드한 파일이 변조되지 않았는지 확인하려면:
 
 ```bash
-shasum -a 256 sajingeulgam-1.0.dmg
+shasum -a 256 sajingeulgam-1.0.1.dmg
 ```
 
 결과가 릴리스 노트에 적힌 SHA-256과 일치해야 합니다.
