@@ -7,7 +7,7 @@
 
 ## 다운로드
 
-👉 **[최신 버전 받기 (Releases)](../../releases/latest)** — `사진글감.dmg`를 내려받아 열고, 앱을 Applications 폴더로 드래그하면 끝입니다.
+👉 **[최신 버전 받기 (Releases)](../../releases/latest)** — dmg 파일을 내려받아 열고, 앱을 Applications 폴더로 드래그하면 끝입니다.
 
 - 요구 사항: **macOS 14 (Sonoma) 이상** · Apple Silicon / Intel 모두 지원
 - Apple 공증(Notarized)이 완료된 앱이라 Gatekeeper 경고 없이 실행됩니다
@@ -27,7 +27,7 @@
 다운로드한 파일이 변조되지 않았는지 확인하려면:
 
 ```bash
-shasum -a 256 사진글감.dmg
+shasum -a 256 sajingeulgam-1.0.dmg
 ```
 
 결과가 릴리스 노트에 적힌 SHA-256과 일치해야 합니다.
