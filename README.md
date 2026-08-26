@@ -1,4 +1,4 @@
-# 사진글감
+# 픽스토리
 
 **[📥 다운로드 페이지](https://bangc121.github.io/sajingeulgam/)** · [최신 릴리스](../../releases/latest)
 
